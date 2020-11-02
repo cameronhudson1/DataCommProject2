@@ -1,6 +1,7 @@
 # C Files
 SOURCE1 = dvrouting.c
 SOURCE2 = lsrouting.c
+SOURCEG = graph.c
 
 # Programs
 PROG1 = dvrouting
@@ -19,6 +20,7 @@ VALGRIND = valgrind --tool=memcheck --leak-check=yes --track-origins=yes
 # Objects
 OBJ1 = $(patsubst %.c, %.o, $(SOURCE1))
 OBJ2 = $(patsubst %.c, %.o, $(SOURCE2))
+OBJG = $(patsubst %.c, %.o, $(SOURCEG))
 
 # Phonys for all make commands
 .PHONY: all, mem, help, clean
@@ -27,17 +29,14 @@ OBJ2 = $(patsubst %.c, %.o, $(SOURCE2))
 all: $(PROG1) $(PROG2)
 
 # Turns the first object file into a binary
-$(PROG1): $(OBJ1)
+$(PROG1): $(OBJ1) $(OBJG)
 	@echo "Linking $(PROG1)"
-	$(CC) $(CFLAGS) $(OBJ1) -o $(PROG1)
+	$(CC) $(CFLAGS) $(OBJ1) $(OBJG) -o $(PROG1)
 
 # Turns the second object file into a binary
-$(PROG2): $(OBJ2)
+$(PROG2): $(OBJ2) $(OBJG)
 	@echo "Linking $(PROG2)"
-	$(CC) $(CFLAGS) $(OBJ2) -o $(PROG2)
-
-LinkedList:
-	$(CC) $(CFLAGS) LinkedList.c -o LinkedList
+	$(CC) $(CFLAGS) $(OBJ2) $(OBJG) -o $(PROG2)
 
 # Compiles all .c files into .o files
 .c.o:
