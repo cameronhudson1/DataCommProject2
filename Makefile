@@ -36,6 +36,9 @@ $(PROG2): $(OBJ2)
 	@echo "Linking $(PROG2)"
 	$(CC) $(CFLAGS) $(OBJ2) -o $(PROG2)
 
+LinkedList:
+	$(CC) $(CFLAGS) LinkedList.c -o LinkedList
+
 # Compiles all .c files into .o files
 .c.o:
 	@echo "Compiling $<"
