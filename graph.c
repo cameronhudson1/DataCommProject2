@@ -1,40 +1,4 @@
-#include "ghraph.h"
-
-
-// C / C++ program for Dijkstra's 
-// shortest path algorithm for adjacency
-// list representation of graph
-#include <stdio.h>
-#include <stdlib.h>
-#include <limits.h>
-
-// A structure to represent a 
-// node in adjacency list
-struct AdjListNode
-{
-    int dest;
-    int weight;
-    struct AdjListNode* next;
-};
-
-// A structure to represent 
-// an adjacency list
-struct AdjList
-{
-    
-// Pointer to head node of list
-struct AdjListNode *head; 
-};
-
-// A structure to represent a graph. 
-// A graph is an array of adjacency lists.
-// Size of array will be V (number of 
-// vertices in graph)
-struct Graph
-{
-    int V;
-    struct AdjList* array;
-};
+#include "graph.h"
 
 // A utility function to create 
 // a new adjacency list node
@@ -86,28 +50,6 @@ void addEdge(struct Graph* graph, int src,
     newNode->next = graph->array[dest].head;
     graph->array[dest].head = newNode;
 }
-
-// Structure to represent a min heap node
-struct MinHeapNode
-{
-    int v;
-    int dist;
-};
-
-// Structure to represent a min heap
-struct MinHeap
-{
-    
-    // Number of heap nodes present currently
-    int size;    
-
-    // Capacity of min heap
-    int capacity; 
-
-    // This is needed for decreaseKey()
-    int *pos; 
-    struct MinHeapNode **array;
-};
 
 // A utility function to create a 
 // new Min Heap Node
@@ -167,9 +109,9 @@ void minHeapify(struct MinHeap* minHeap,
     if (smallest != idx)
     {
         // The nodes to be swapped in min heap
-        MinHeapNode *smallestNode = 
+        struct MinHeapNode *smallestNode = 
             minHeap->array[smallest];
-        MinHeapNode *idxNode = 
+        struct MinHeapNode *idxNode = 
                 minHeap->array[idx];
 
         // Swap positions
@@ -349,31 +291,4 @@ void dijkstra(struct Graph* graph, int src)
 
     // print the calculated shortest distances
     printArr(dist, V);
-}
-
-
-// Driver program to test above functions
-int main()
-{
-    // create the graph given in above fugure
-    int V = 9;
-    struct Graph* graph = createGraph(V);
-    addEdge(graph, 0, 1, 4);
-    addEdge(graph, 0, 7, 8);
-    addEdge(graph, 1, 2, 8);
-    addEdge(graph, 1, 7, 11);
-    addEdge(graph, 2, 3, 7);
-    addEdge(graph, 2, 8, 2);
-    addEdge(graph, 2, 5, 4);
-    addEdge(graph, 3, 4, 9);
-    addEdge(graph, 3, 5, 14);
-    addEdge(graph, 4, 5, 10);
-    addEdge(graph, 5, 6, 2);
-    addEdge(graph, 6, 7, 1);
-    addEdge(graph, 6, 8, 6);
-    addEdge(graph, 7, 8, 7);
-
-    dijkstra(graph, 0);
-
-    return 0;
 }

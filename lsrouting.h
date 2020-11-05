@@ -3,4 +3,6 @@
 
 #include "common.h"
 
+#define GET_ALPHANUM(x) ((x) - 65)
+
 #endif
